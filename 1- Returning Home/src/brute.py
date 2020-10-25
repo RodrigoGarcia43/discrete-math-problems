@@ -75,6 +75,8 @@ def search_for_instants(n, x, y, instant_positions):
     return result
 
 
+# Función auxiliar para visualizar mejor el tablero
+# Sólo util para testear
 def print_board(board, x, y):
     temp = board[x][y]
     board[x][y] = 2

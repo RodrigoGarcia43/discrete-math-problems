@@ -1,4 +1,5 @@
 from brute import analyze as brute
+from brute_optimized import analyze as brute_optimized
 from optimal import analyze as optimal
 
 
@@ -37,7 +38,8 @@ for i in range(0, 10000):
     f.close()
 
     # you can test the following codes
-    brute_sol = brute(n, start_x, start_y, (end_x, end_y), instant_positions)
+    # brute_sol = brute(n, start_x, start_y, (end_x, end_y), instant_positions)
+    brute_sol = brute_optimized(n, start_x, start_y, (end_x, end_y), instant_positions)
     optimal_sol = optimal(n, m, start_x, start_y, (end_x, end_y), instant_positions)
 
     if not (brute_sol == optimal_sol):
