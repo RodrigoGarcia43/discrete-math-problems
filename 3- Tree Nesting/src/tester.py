@@ -1,5 +1,6 @@
 from brute import solve as brute
-from brute_optimized import solve as brute_optimized
+
+# from brute_optimized import solve as brute_optimized
 from optimal import solve as optimal
 
 
@@ -24,23 +25,29 @@ for i in range(0, 10000):
     aux = test + str(i)
     f = open("tests/" + aux, "r")
     n = read_file_line(f)[0]
-    m = read_file_line(f)[0]
-    start = read_file_line(f)
-    start_x, start_y = start[0] - 1, start[1] - 1
-    end = read_file_line(f)
-    end_x, end_y = end[0] - 1, end[1] - 1
+
+    s_edges = []
     temp = read_file_line(f)
     k = 0
-    instant_positions = []
+
     while k < len(temp):
-        instant_positions.append((temp[k] - 1, temp[k + 1] - 1))
+        s_edges.append((temp[k] - 1, temp[k + 1] - 1))
         k += 2
+
+    m = read_file_line(f)[0]
+    t_edges = []
+    temp = read_file_line(f)
+    k = 0
+
+    while k < len(temp):
+        t_edges.append((temp[k] - 1, temp[k + 1] - 1))
+        k += 2
+
     f.close()
 
     # you can test the following codes
-    # brute_sol = brute(n, start_x, start_y, (end_x, end_y), instant_positions)
-    brute_sol = brute_optimized(n, start_x, start_y, (end_x, end_y), instant_positions)
-    optimal_sol = optimal(n, m, start_x, start_y, (end_x, end_y), instant_positions)
+    brute_sol = brute(n, s_edges, m, t_edges)
+    optimal_sol = optimal(n, s_edges, m, t_edges)
 
     if not (brute_sol == optimal_sol):
         count += 1

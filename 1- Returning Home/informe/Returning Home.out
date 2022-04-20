@@ -1,0 +1,9 @@
+\BOOKMARK [1][-]{section.1}{Texto del problema}{}% 1
+\BOOKMARK [1][-]{section.2}{El problema}{}% 2
+\BOOKMARK [1][-]{section.3}{Algoritmo de Dijkstra}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Demostraci\363n}{section.3}% 4
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Inducci\363n sobre las iteraciones \(it\) del ciclo principal}{subsection.3.1}% 5
+\BOOKMARK [1][-]{section.4}{Idea Fuerza Bruta}{}% 6
+\BOOKMARK [1][-]{section.5}{Optimizaci\363n de la Fuerza Bruta}{}% 7
+\BOOKMARK [1][-]{section.6}{Algoritmo \363ptimo}{}% 8
+\BOOKMARK [2][-]{subsection.6.1}{Complejidad temporal}{section.6}% 9

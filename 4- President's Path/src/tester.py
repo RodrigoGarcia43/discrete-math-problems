@@ -1,6 +1,6 @@
 from brute import solve as brute
-from brute_optimized import solve as brute_optimized
 from optimal import solve as optimal
+from brute_optimized import solve as brute_optimized
 
 
 def read_file_line(f):
@@ -25,27 +25,25 @@ for i in range(0, 10000):
     f = open("tests/" + aux, "r")
     n = read_file_line(f)[0]
     m = read_file_line(f)[0]
-    start = read_file_line(f)
-    start_x, start_y = start[0] - 1, start[1] - 1
-    end = read_file_line(f)
-    end_x, end_y = end[0] - 1, end[1] - 1
+
     temp = read_file_line(f)
     k = 0
-    instant_positions = []
+    edges = []
     while k < len(temp):
-        instant_positions.append((temp[k] - 1, temp[k + 1] - 1))
-        k += 2
+        edges.append((temp[k], temp[k + 1], temp[k + 2]))
+        k += 3
     f.close()
 
     # you can test the following codes
-    # brute_sol = brute(n, start_x, start_y, (end_x, end_y), instant_positions)
-    brute_sol = brute_optimized(n, start_x, start_y, (end_x, end_y), instant_positions)
-    optimal_sol = optimal(n, m, start_x, start_y, (end_x, end_y), instant_positions)
+    # warning: to test the brute_sol you most generate small cases
+    # brute_sol = brute(n, m, edges)
+    brute_optimized_sol = brute_optimized(n, m, edges)
+    optimal_sol = optimal(n, m, edges)
 
-    if not (brute_sol == optimal_sol):
+    if not (brute_optimized_sol == optimal_sol):
         count += 1
         print("ERROR at " + aux)
-        print("first SOLUTION = " + str(brute_sol))
+        print("first SOLUTION = " + str(brute_optimized_sol))
         print("second SOLUTION = " + str(optimal_sol))
 
     else:

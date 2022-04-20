@@ -1,12 +1,12 @@
-import sys
-
-
+# Función principal
+# Entradas:
+# n -> Cantidad de vértices
+# m -> Cantidad de aristas
+# edges -> Lista de tuplas que representan las aristas
 def solve(n, m, edges):
 
     visited = [0] * n
-    vertices = []
-    for _ in range(n):
-        vertices.append([])
+    vertices = [[] for _ in range(n)]
 
     cnt = [0] * n
     loops = 0
@@ -22,8 +22,9 @@ def solve(n, m, edges):
             cnt[v] += 1
             cnt[u] += 1
             vertices[v].append(u)
-            vertices[v].append(v)
+            vertices[u].append(v)
 
+    # Verificando si el grafo es conexo, de no serlo se retorna 0.
     dfs(visited, vertices, 0)
     for v in visited:
         if v == 0:
@@ -31,30 +32,38 @@ def solve(n, m, edges):
 
     result = 0
 
-    for c in cnt:
-        result += combinations(c, 2)
+    # Lista para guardar los factoriales hasta el máximo valor que será necesario y evitar recalculos.
+    factorials_list = factorials(max(loops, max(cnt)))
 
+    # Calculando parejas de aristas no lazos adyacentes.
+    for c in cnt:
+        result += combinations(c, 2, factorials_list)
+
+    # se le suma la cantidad de lazos, multiplicada por m-1.
     result += loops * (m - 1)
-    result -= combinations(loops, 2)
+
+    # Quitando pares de aristas lazos que fueron incluidos dos veces.
+    result -= combinations(loops, 2, factorials_list)
     return result
 
 
-def combinations(n, k):
-    return int(factorial(n) / (factorial(n - k) * factorial(k)))
+def combinations(n, k, factorials):
+    return int(factorials[n] / (factorials[n - k] * factorials[k]))
 
 
-def factorial(n):
+def factorials(n):
+    factorial_list = [1] * (n + 2)
     fact = 1
-    for i in range(1, n + 1):
+    for i in range(1, n + 2):
         fact = fact * i
-    return fact
+        factorial_list[i] = fact
+
+    return factorial_list
 
 
 def dfs(visited, graph, node):
-    if visited[node] == 0:
-        visited[node] = 1
-        for neighbour in graph[node]:
+    visited[node] = 1
+    for neighbour in graph[node]:
+        if visited[neighbour] == 0:
             dfs(visited, graph, neighbour)
 
-
-print(solve(5, 3, [(1, 2), (2, 3), (4, 5)]))
